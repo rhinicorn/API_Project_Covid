@@ -2,24 +2,27 @@
 const baseURL = 'https://api.covid19api.com/summary'
 
 const searchForm = document.querySelector('form');
+const globalButton = document.querySelector('#globalSubmit')
 
-searchForm.addEventListener('submit', fetchData);
-searchForm.addEventListener('getCountry1', fetchData1);
-//searchForm.addEventListener('getCountry2', fetchData1);
+globalButton.addEventListener('submitGlobal', fetchData);
+searchForm.addEventListener('submitCountry', fetchData1);
 
+
+//GLOBAL
 function fetchData1(e){
     e.preventDefault();
 
     fetch(baseURL)
         .then(result => result.json())
         .then(json => {
-            //console.log(json);
+            console.log(json);
             let countryData = json.Countries
             let globalData = json.Global
             displayResults1(countryData);
         })
 }
 
+//COUNTRY
 function fetchData(e){
     e.preventDefault();
 
@@ -29,7 +32,7 @@ function fetchData(e){
             //console.log(json);
             let countryData = json.Countries
             let globalData = json.Global
-            displayResults(countryData);
+            displayResults(globalData);
         })
 }
 
