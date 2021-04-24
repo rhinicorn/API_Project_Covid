@@ -1,0 +1,15 @@
+.container-fluid{
+    width: 100%;
+    padding-right: var(--bs-gutter-x,.75rem);
+    padding-left: var(--bs-gutter-x,.75rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.display-5, .fw-bold{
+    color:ghostwhite;
+    font-weight: 800!important;
+}
+.col-md-8, .fs-4{
+    color:black
+}
