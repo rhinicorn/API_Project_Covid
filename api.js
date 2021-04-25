@@ -77,27 +77,28 @@ function fetchData(e){
         .then(json => {
             console.log(json);
             let countryData = json.Countries
-            displayResults(countryData);
+            let country= document.getElementById("getCountry").value
+            displayResults(countryData,country);
         })
 }
 //DISPLAY RESULTS FOR COUNTRY
-function displayResults(countryData){
+function displayResults(countryData, country){
     console.log(countryData)
+    //console.log(country)
     let myresults = {
+        
         tConfirmed: countryData.TotalConfirmed,
         tDeaths: countryData.TotalDeaths,
         tRecoveries: countryData.TotalRecovered
     }
 
-    //get the value from the text search box
-    let country1 = document.getElementById('getCountry').value
-    console.log(country1)
-
     for(let i=0;i<countryData.length;i++){
         //console.log(countryData[i].CountryCode)
-        if(countryData[i].CountryCode == country1){
+        console.log("Country: "+ countryData[i].Country +"\nTotal Confirmed Cases: "+ countryData[i].TotalConfirmed +"\n Total Deaths: "+countryData[i].TotalDeaths +"\n Total Recovered: "+countryData[i].TotalRecovered)
+        /*if(countryData[i].CountryCode === country){
+            
             document.getElementById("results").innerHTML = "Country: "+ countryData[i].Country +"\nTotal Confirmed Cases: "+ countryData[i].TotalConfirmed +"\n Total Deaths: "+countryData[i].TotalDeaths +"\n Total Recovered: "+countryData[i].TotalRecovered
-        }
+        }*/
     }
     countryResultsArr.push(myresults)
     renderCountryResults()     
