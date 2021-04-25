@@ -41,14 +41,14 @@ function displayGlobalResults(Data){
 function renderGlobalResults(){
     globalLog.innerHTML = ""
     for(let i = 0; i<globalResultsArr.length; i++){
-        let row = createTableRow(globalResultsArr[i])
+        let row = createTableRowGlobal(globalResultsArr[i])
         globalLog.appendChild(row)
     }
 }
 
 //ADD ROWS USING FETCHED DATA FOR GLOBAL
 //used base template structre from code-along example
-function createTableRow(e) {
+function createTableRowGlobal(e) {
     console.log(e)
     
     let tableRow = document.createElement('tr')
@@ -77,37 +77,60 @@ function fetchData(e){
         .then(json => {
             console.log(json);
             let countryData = json.Countries
-            let country= document.getElementById("getCountry").value
-            displayResults(countryData,country);
+            //let country= document.getElementById("getCountry").value
+            displayResults(countryData);
         })
 }
 //DISPLAY RESULTS FOR COUNTRY
-function displayResults(countryData, country){
+function displayResults(countryData){
     console.log(countryData)
-    //console.log(country)
-    let myresults = {
+    //let myresults = {
         
-        tConfirmed: countryData.TotalConfirmed,
-        tDeaths: countryData.TotalDeaths,
-        tRecoveries: countryData.TotalRecovered
-    }
-
+    //    tConfirmed: countryData.TotalConfirmed,
+    //    tDeaths: countryData.TotalDeaths,
+    //    tRecoveries: countryData.TotalRecovered
+    //}
+    let myResults = []
     for(let i=0;i<countryData.length;i++){
         //console.log(countryData[i].CountryCode)
-        console.log("Country: "+ countryData[i].Country +"\nTotal Confirmed Cases: "+ countryData[i].TotalConfirmed +"\n Total Deaths: "+countryData[i].TotalDeaths +"\n Total Recovered: "+countryData[i].TotalRecovered)
-        /*if(countryData[i].CountryCode === country){
-            
-            document.getElementById("results").innerHTML = "Country: "+ countryData[i].Country +"\nTotal Confirmed Cases: "+ countryData[i].TotalConfirmed +"\n Total Deaths: "+countryData[i].TotalDeaths +"\n Total Recovered: "+countryData[i].TotalRecovered
-        }*/
+        //console.log("Country: "+ countryData[i].Country +"\nTotal Confirmed Cases: "+ countryData[i].TotalConfirmed +"\n Total Deaths: "+countryData[i].TotalDeaths +"\n Total Recovered: "+countryData[i].TotalRecovered)
+        myResults[i] = {
+            countryName: countryData[i].Country,
+            tConfirmed: countryData[i].TotalConfirmed,
+            tDeaths: countryData[i].TotalDeaths,
+            tRecoveries: countryData[i].TotalRecovered
+        } 
+        countryResultsArr.push(myResults[i])     
     }
-    countryResultsArr.push(myresults)
-    renderCountryResults()     
+    renderCountryResults()
 }
+
 //CREATE THE TABLE RENDERING FOR COUNTRY
 function renderCountryResults(){
     countryLog.innerHTML = ""
     for(let i = 0; i<countryResultsArr.length; i++){
-        let row = createTableRow(countryResultsArr[i])
+        let row = createTableRowCountry(countryResultsArr[i])
         countryLog.appendChild(row)
     }
+}
+function createTableRowCountry(e) {
+    console.log(e)
+    
+    let tableRow = document.createElement('tr')
+    let countryName = document.createElement('td')
+    let tcases = document.createElement('td')
+    let tdeaths = document.createElement('td')
+    let trecoveries = document.createElement('td')
+    
+    countryName.innerText = e.countryName
+    tcases.innerText = e.tConfirmed
+    tdeaths.innerText = e.tDeaths
+    trecoveries.innerText = e.tRecoveries
+
+    tableRow.appendChild(countryName)
+    tableRow.appendChild(tcases)
+    tableRow.appendChild(tdeaths)
+    tableRow.appendChild(trecoveries)
+
+    return tableRow
 }
