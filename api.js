@@ -77,7 +77,6 @@ function fetchData(e){
         .then(json => {
             console.log(json);
             let countryData = json.Countries
-            //let country= document.getElementById("getCountry").value
             displayResults(countryData);
         })
 }
